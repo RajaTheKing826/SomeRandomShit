@@ -1,0 +1,107 @@
+.posts-container {
+  width: 85%;
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.posts-wrapper {
+  width: 100%;
+}
+
+.pagination-wrappr {
+  width: 100%;
+  justify-content: center;
+}
+
+.bar-container {
+  display: flex;
+}
+
+.post-content-container {
+  display: flex;
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+  width: 90%;
+}
+
+.title-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.date-text {
+  font-size: 14px;
+  color: grey;
+}
+
+.bar-post-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.post-content-container {
+  display: flex;
+  align-items: center;
+}
+
+.bar-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cross-icon-wrapper {
+  margin-left: 10px;
+  border-radius: 50%;
+  min-width: 25px;
+  min-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  cursor: pointer;
+}
+.pagination-wrapper {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.decrease-button {
+  cursor: pointer;
+  height: 20px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  padding: 2px;
+}
+
+.increase-button {
+  cursor: pointer;
+  margin-left: 10px;
+  height: 20px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  padding: 2px;
+}
+
+.pagination-number {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 0px 3px;
+}
