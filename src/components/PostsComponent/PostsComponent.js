@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 export const PostsComponent = (props) => {
-  const { selectedView } = props;
+  const { selectedView, onPostCardClick } = props;
   const [totalData, setTotalData] = useState([]);
   const [posts, setPosts] = useState([]);
   const [paginationNumbers, setPaginationNumber] = useState([1, 2, 3]);
@@ -10,9 +10,37 @@ export const PostsComponent = (props) => {
   const [offset, setOffSet] = useState(0);
   const limit = 6;
 
-  const onIncreasePaginationButtonClick = () => {};
+  const onIncreasePaginationButtonClick = () => {
+    if (activePaginationNumber === paginationNumbers[0]) {
+      setActivePaginationNumber(paginationNumbers[1]);
+    }
+    setPaginationNumber([
+      ...paginationNumbers.slice(1, 3),
+      paginationNumbers[2] + 1,
+    ]);
+    setPosts(
+      totalData.slice(
+        (activePaginationNumber - 1) * limit,
+        (activePaginationNumber - 1) * limit + limit
+      )
+    );
+  };
 
-  const onDecreasePaginationBUttonClick = () => {};
+  const onDecreasePaginationBUttonClick = () => {
+    if (activePaginationNumber === paginationNumbers[2]) {
+      setActivePaginationNumber(paginationNumbers[1]);
+    }
+    setPaginationNumber([
+      paginationNumbers[0] - 1,
+      ...paginationNumbers.slice(0, 2),
+    ]);
+    setPosts(
+      totalData.slice(
+        (activePaginationNumber - 1) * limit,
+        (activePaginationNumber - 1) * limit + limit
+      )
+    );
+  };
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/posts`)
       .then((response) => response.json())
@@ -26,17 +54,21 @@ export const PostsComponent = (props) => {
   const onPaginationNumberClick = (number) => {
     setActivePaginationNumber(number);
     setPosts(
-      totalData.slice(
-        (activePaginationNumber - 1) * limit,
-        (activePaginationNumber - 1) * limit + limit
-      )
+      totalData.slice((number - 1) * limit, (number - 1) * limit + limit)
+    );
+  };
+
+  const getPosts = () => {
+    return totalData.slice(
+      activePaginationNumber * limit,
+      activePaginationNumber * limit + limit
     );
   };
 
   const renderBarView = () => {
-    return posts.map((post) => (
-      <div className="bar-container">
-        <div className="post-content-container">
+    return getPosts().map((post) => (
+      <div key={post.title} className="bar-container">
+        <div onClick={onPostCardClick} className="post-content-container">
           <div>
             <img
               className="bar-post-image"
@@ -62,7 +94,11 @@ export const PostsComponent = (props) => {
         onClick={() => {
           onPaginationNumberClick(number);
         }}
-        className="pagination-number"
+        className={
+          number === activePaginationNumber
+            ? "pagination-number selected-number"
+            : "pagination-number"
+        }
       >
         {number}
       </div>
@@ -79,8 +115,8 @@ export const PostsComponent = (props) => {
       <div className="pagination-wrapper">
         <button
           disabled={paginationNumbers[0] === 1}
-          class="decrease-button"
           className="decrease-button"
+          onClick={onDecreasePaginationBUttonClick}
         >
           decrease
         </button>
@@ -89,6 +125,7 @@ export const PostsComponent = (props) => {
           disabled={paginationNumbers[2] === totalPagesCount}
           className="increase-button"
           className="increase-button"
+          onClick={onIncreasePaginationButtonClick}
         >
           increase
         </button>
