@@ -122,7 +122,7 @@ export const PostsComponent = (props) => {
         </button>
         {renderPaginationNumbers()}
         <button
-          disabled={paginationNumbers[2] === totalPagesCount}
+          disabled={paginationNumbers[2] + 4 === totalPagesCount}
           className="increase-button"
           className="increase-button"
           onClick={onIncreasePaginationButtonClick}
